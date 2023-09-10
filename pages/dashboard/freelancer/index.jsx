@@ -12,7 +12,7 @@ function Home() {
             <div className="grid place-items-center space-y-4">
               <div className="relative rounded-full overflow-hidden w-36 h-36">
                 <Image
-                  src="/images/metamask-profile.jpg" // Avatar via rainbowkit
+                  src="/freelancer.png" // Avatar via rainbowkit
                   alt="Metamask Profile"
                   width={144}
                   height={144}
