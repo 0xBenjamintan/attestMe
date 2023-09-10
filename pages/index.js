@@ -3,10 +3,11 @@ import React, { useEffect, useState } from "react";
 import LandingPageContents from '@/components/ui/LandingPageContents';
 import TwoButtonsLayout from '@/components/ui/TwoButtonsLayout';
 import { useAccount } from "wagmi";
+import dynamic from 'next/dynamic';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+function Home() {
   const [userWallet, setUserWallet] = useState(null); 
   const { address } = useAccount();
 
@@ -19,3 +20,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default dynamic (() => Promise.resolve(Home), {ssr: false} )
