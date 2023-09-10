@@ -1,18 +1,16 @@
 import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css';
-import { darkTheme, getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
+import { darkTheme, getDefaultWallets, midnightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, base, zora } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { mainnet, polygon, optimism, arbitrum, base, zora, mantleTestnet, taikoTestnetSepolia } from 'wagmi/chains';
+import RootLayout from "@/components/ui/Layout"
+
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, base, zora],
-  [
-    alchemyProvider({ apiKey: 'ys_3UoP4Kyb-RFPSYs0jR33ZmZOrKXSB'}),
-    publicProvider()
-  ]
-);
+  [mantleTestnet],
+  [publicProvider()]
+)
 
 const { connectors } = getDefaultWallets({
   appName: 'Hackathon Boilerplate',
@@ -29,8 +27,10 @@ const wagmiConfig = createConfig({
 export default function App({ Component, pageProps }) {
   return (
   <WagmiConfig config={wagmiConfig}>
-    <RainbowKitProvider chains={chains} theme={darkTheme()}>
-        <Component {...pageProps} />
+    <RainbowKitProvider chains={chains}>
+      <RootLayout> 
+          <Component {...pageProps} />
+      </RootLayout>
     </RainbowKitProvider>
   </WagmiConfig>
   )
