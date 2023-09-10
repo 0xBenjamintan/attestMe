@@ -11,7 +11,7 @@ import {
 
 const TwoButtonsLayout = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center my-20">
       {/* First Card */}
       <Card className="mr-4">
         <div className="flex flex-col items-center p-6">
