@@ -14,12 +14,11 @@ const LandingPageContents = ({ imageUrl, title }) => {
                 <h1 className="text-4xl font-bold">
                     Welcome to <span className="text-blue-500">AttestMe</span>
                 </h1>
-                <p className="text-xl mt-8">Attest Me is a platform that allows you to verify your skills and experience in a way that is secure, private and easy to share.</p>
-                <p className="text-lg mt-8 text-blue-500 font-bold ">Connect your wallet and try it out!</p>
+                <p className="text-xl mt-8">Attest Me is a platform that allows you to verify your skills and experience in a way that is secure, private, and easy to share.</p>
+                <p className="text-lg mt-8 text-blue-500 font-bold">Connect your wallet and try it out!</p>
             </div>
         </div>
     </div>
-
   );
 };
 

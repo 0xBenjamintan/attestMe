@@ -4,16 +4,24 @@ import React, { useEffect, useState } from "react";
 //import { Button } from "@/components/ui/button"
 import LandingPageContents from '@/components/ui/LandingPageContents';
 import TwoButtonsLayout from '@/components/ui/TwoButtonsLayout';
+import { useAccount, useBalance, useEnsName } from "wagmi";
+import { add } from 'date-fns';
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const [userWallet, setUserWallet] = useState(null); 
+  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
+  const { balanceData, isError, isLoading } = useBalance({
+    address: address,
+  })
+  console.log("address: ", address);
+  
   return (
     <main>
-      <LandingPageContents />
-      <TwoButtonsLayout />
-      
+      { address ? <TwoButtonsLayout /> : <LandingPageContents /> }
     </main>
   );
 }
