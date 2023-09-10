@@ -6,6 +6,7 @@ const LandingPageContents = ({ imageUrl, title }) => {
         <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2 pr-4">
                 {/* Left Column (Image) */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="./job.png" alt="Image" className="w-full" />
             </div>
             <div className="md:w-1/2 mt-4 md:mt-0 flex flex-col justify-center">
