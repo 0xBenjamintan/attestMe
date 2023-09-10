@@ -1,26 +1,20 @@
-import { Inter } from 'next/font/google'
+import { Inter } from 'next/font/google';
 import React, { useEffect, useState } from "react";
-//import { ConnectButton } from '@rainbow-me/rainbowkit'
-//import { Button } from "@/components/ui/button"
 import LandingPageContents from '@/components/ui/LandingPageContents';
 import TwoButtonsLayout from '@/components/ui/TwoButtonsLayout';
-import { useAccount, useBalance, useEnsName } from "wagmi";
-import { add } from 'date-fns';
+import { useAccount } from "wagmi";
 
-
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-
   const [userWallet, setUserWallet] = useState(null); 
-  const { address, isConnecting, isDisconnected, isConnected } = useAccount();
-  const { balanceData, isError, isLoading } = useBalance({
-    address: address,
-  })
-  console.log("address: ", address);
-  
+  const { address } = useAccount();
+
+  // Use the 'overflow-hidden' class to prevent scrolling
+  const noScrollClass = "overflow-hidden";
+
   return (
-    <main>
+    <main className={noScrollClass}>
       { address ? <TwoButtonsLayout /> : <LandingPageContents /> }
     </main>
   );

@@ -7,7 +7,6 @@ const RootLayout = ({ children }) => {
         <div className="flex-grow">
           <Header />
           <main className="my-0">{children}</main>
-          <Footer />
         </div>
       </div>
     );
