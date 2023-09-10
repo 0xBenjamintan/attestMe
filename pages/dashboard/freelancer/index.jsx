@@ -18,7 +18,7 @@ export default function Home() {
       </div>
 
       <div className="relative w-[420px] lg:w-1/3">
-        <Card className="w-7/10 h-auto p-6 space-y-4"> {/* Change w-4/5 to w-7/10 */}
+        <Card className="w-17/20 h-auto p-6 space-y-4">
           <CardContent>
             <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Freelancer Profile</CardTitle>
             <div className="grid place-items-center space-y-4">
@@ -37,6 +37,16 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
+        <div className="w-7/10 h-auto">
+          {/* Add your image here with the same dimensions as the card */}
+          <Image
+            src="/your-image.jpg" // Replace with the path to your image
+            alt="Additional Image"
+            width={840 * 0.7}  {/* Match the width of the card */}
+            height={840 * 0.7} {/* Match the height of the card */}
+            objectFit="cover"
+          />
+        </div>
       </div>
 
 
