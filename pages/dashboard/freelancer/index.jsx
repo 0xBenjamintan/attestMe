@@ -5,8 +5,9 @@ import dynamic from 'next/dynamic'
 function Home() {
   return (
     <main>
-      <div className="relative w-[420px] lg:w-1/3 mt-20">
-        <Card className="w-17/20 h-auto p-6 space-y-4">
+      <div className="relative flex flex-col items-center lg:flex-row justify-center w-full mt-20 mb-20 gap-20">
+        <div className="w-1/2 lg:w-1/3">
+          <Card className="w-full h-auto p-6 space-y-4">
           <CardContent>
             <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Freelancer Profile</CardTitle>
             <div className="grid place-items-center space-y-4">
@@ -24,20 +25,22 @@ function Home() {
               <p>Posted Projects: [Data]</p>
             </div>
           </CardContent>
-        </Card>
-        <div className="w-7/10 h-auto">
-          {/* Add your image here with the same dimensions as the card */}
-          <Image
-            src="/dashboard.jpg" // Replace with the path to your image
-            alt="Additional Image"
-            width={840 * 0.7}
-            height={840 * 0.7} 
-            objectFit="cover"
-          />
+          </Card>
+        </div>
+        <div className="w-1/2 lg:w-1/3">
+          <div className="w-full h-auto">
+            <Image
+              src="/dashboard.png" // Replace with the path to your image
+              alt="Additional Image"
+              width={840 * 1.0}
+              height={840 * 1.0}
+              objectFit="cover"
+            />
+          </div>
         </div>
       </div>
 
-
+      <div className="flex justify-center items-center">
         <div className="w-1/3 lg:w-2/3 lg:pl-4">
           <Card className="w-full h-auto p-4 space-y-4">
             <h2 className="text-xl font-semibold text-gray-800">Projects:</h2>
@@ -74,6 +77,7 @@ function Home() {
             </div>
           </Card>
         </div>
+      </div>
 
     </main>
   );
