@@ -3,6 +3,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { darkTheme, getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { mainnet, polygon, optimism, arbitrum, base, zora, mantleTestnet, taikoTestnetSepolia } from 'wagmi/chains';
+import RootLayout from "@/components/ui/Layout"
 
 import { publicProvider } from 'wagmi/providers/public';
 
@@ -27,7 +28,9 @@ export default function App({ Component, pageProps }) {
   return (
   <WagmiConfig config={wagmiConfig}>
     <RainbowKitProvider chains={chains} theme={darkTheme()}>
-        <Component {...pageProps} />
+      <RootLayout> 
+          <Component {...pageProps} />
+      </RootLayout>
     </RainbowKitProvider>
   </WagmiConfig>
   )
