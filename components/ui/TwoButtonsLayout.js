@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card";
+import Link from "next/link";
 
 
 const TwoButtonsLayout = () => {
@@ -31,7 +32,7 @@ const TwoButtonsLayout = () => {
           {/* Button */}
           <CardFooter>
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-10">
-              Select
+              <Link href="/dashboard/client">Select</Link>
             </button>
           </CardFooter>
         </div>
@@ -56,7 +57,7 @@ const TwoButtonsLayout = () => {
           {/* Button */}
           <CardFooter>
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-10">
-              Select
+              <Link href="/dashboard/freelancer">Select</Link>
             </button>
           </CardFooter>
         </div>
