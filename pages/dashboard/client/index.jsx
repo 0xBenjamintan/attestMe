@@ -9,10 +9,10 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+        <p className="fixed left-0 top-0 flex w-full justify-start border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           AttestMe
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+        <div className="fixed top-0 right-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <ConnectButton />
         </div>
       </div>
@@ -50,8 +50,6 @@ export default function Home() {
                 <CardHeader>
                   <CardTitle>Project 1</CardTitle>
                   <CardDescription>Project Description</CardDescription>
-                  <CardDescription>Duration</CardDescription>
-                  <CardDescription>Price</CardDescription>                
                 </CardHeader>
                 <CardContent>
                   {/* Project 1's Details*/}
@@ -62,8 +60,15 @@ export default function Home() {
                 <CardHeader>
                   <CardTitle>Project 2</CardTitle>
                   <CardDescription>Project Description</CardDescription>
-                  <CardDescription>Duration</CardDescription>
-                  <CardDescription>Price</CardDescription>
+                </CardHeader>
+                <CardContent>
+                </CardContent>
+              </Card>
+
+              <Card className="w-full h-auto p-4 space-y-4">
+                <CardHeader>
+                  <CardTitle>Project 3</CardTitle>
+                  <CardDescription>Project Description</CardDescription>
                 </CardHeader>
                 <CardContent>
                 </CardContent>
