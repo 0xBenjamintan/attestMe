@@ -2,17 +2,14 @@ import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css';
 import { darkTheme, getDefaultWallets, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, base, zora } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { mainnet, polygon, optimism, arbitrum, base, zora, mantleTestnet, taikoTestnetSepolia } from 'wagmi/chains';
+
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
-  [mainnet, polygon, optimism, arbitrum, base, zora],
-  [
-    alchemyProvider({ apiKey: 'ys_3UoP4Kyb-RFPSYs0jR33ZmZOrKXSB'}),
-    publicProvider()
-  ]
-);
+  [mantleTestnet],
+  [publicProvider()]
+)
 
 const { connectors } = getDefaultWallets({
   appName: 'Hackathon Boilerplate',
