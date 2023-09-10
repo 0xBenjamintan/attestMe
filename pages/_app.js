@@ -13,7 +13,7 @@ const { chains, publicClient } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'Hackathon Boilerplate',
+  appName: 'Ethereum Singapore Hackathon',
   projectId: '37321bd7beb025d093a574ad960d4e2b',
   chains
 });
