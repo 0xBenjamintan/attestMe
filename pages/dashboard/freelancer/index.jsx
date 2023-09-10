@@ -26,9 +26,8 @@ function Home() {
           </CardContent>
         </Card>
         <div className="w-7/10 h-auto">
-          {/* Add your image here with the same dimensions as the card */}
           <Image
-            src="/dashboard.jpg" // Replace with the path to your image
+            src="/dashboard.jpg"
             alt="Additional Image"
             width={840 * 0.7}
             height={840 * 0.7} 
@@ -61,7 +60,7 @@ function Home() {
               <Card className="w-full h-auto p-4">
                 <CardHeader>
                   <CardTitle>Project 2</CardTitle>
-                  <div className="mt-2"> {/* Add margin-top for spacing */}
+                  <div className="mt-2">
                     <CardDescription>Project Description</CardDescription>
                     <CardDescription>Duration</CardDescription>
                     <CardDescription>Price</CardDescription>
