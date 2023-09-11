@@ -24,9 +24,7 @@ contract Post {
         uint256 postPrice,
         uint256 postDate,
         string postDuration,
-        bool postStatus,
-        address[] interestedFreelancers,
-        address taskWinner
+        bool postStatus
     );
 
     // Post structure
@@ -47,77 +45,66 @@ contract Post {
     Counters.Counter private _postId;
 
     mapping(uint256 => PostStruct) private _idToPosts;
+    mapping(address => uint256[]) private _userToPostIds;
 
     // Create post
     function createPost(
+        string calldata _postTitle,
         string calldata _postContent,
         uint256 _postDate,
-        string calldata _postCreator,
         uint256 _postPrice,
         string calldata _postDuration,
-        bool _postStatus,
-        address[] calldata _interestedFreelancers,
-        address _taskWinner
+        bool _postStatus
     ) external {
         require(bytes(_postTitle).length > 0, "No Post Title!");
         require(bytes(_postContent).length > 0, "No Post Content!");
-        require(bytes(_postPrice).length > 0, "No Price!");
+        require(_postPrice > 0, "No Price!");
         require(bytes(_postDuration).length > 0, "No Duration!");
 
         _postId.increment();
         uint256 postId = _postId.current();
-        PostStruct storage post = idToPosts[postId]; 
-        // when you create a new post, it will be stored in this variable, 
-        //the post will be stored in the mapping with the key postId and the value will be the postStruct
-        
-        // below is the postStruct that will be stored in the storage
+        PostStruct storage post = _idToPosts[postId];
+
         post.postId = postId;
         post.postCreator = msg.sender;
         post.postTitle = _postTitle;
         post.postContent = _postContent;
         post.postPrice = _postPrice;
-        post.postDate = postDate;
+        post.postDate = _postDate;
         post.postDuration = _postDuration;
 
-        userToPostIds[msg.sender].push(postId);
+        _userToPostIds[msg.sender].push(postId);
 
         emit PostCreated(
             postId,
-            msg.sender,
             _postTitle,
+            msg.sender,
             _postContent,
             _postPrice,
             _postDate,
-            _postDuration
+            _postDuration,
+            _postStatus
         );
     }
 
-// the different between the two functions below is that the first one is use for querying a single post created by a single user, 
-// while the second one is use for querying all the posts created by a single user
+    // the different between the two functions below is that the first one is use for querying a single post created by a single user,
+    // while the second one is use for querying all the posts created by a single user
     // Get single post
     // this function is use for querying a single post in the storage
-    function getPost(uint256 postId) external view returns (PostStruct[] memory) {
+    function getPost(uint256 postId) external view returns (PostStruct memory) {
         require(postId <= _postId.current(), "Post does not exist");
-        return idToPosts[postId];
+        return _idToPosts[postId];
     }
 
     // Get all posts with pagination
     // this function is use for querying all the posts in the storage
-    function getAllPosts(
-        uint256 start,
-        uint256 end
-    ) external view returns (PostStruct[] memory) {
-        uint256 lastPostId = _postId.current();
-        require(
-            start <= end && end <= lastPostId,
-            "Invalid start or end values"
-        );
+    function getAllPosts() external view returns (PostStruct[] memory) {
         // calculate the length of the array, the amount of posts that will be returned
-        uint256 length = end - start + 1;
+        uint256 length = _postId.current() - 1;
         PostStruct[] memory posts = new PostStruct[](length); // create a new array with the length of the amount of posts that will be returned
 
         for (uint256 i = 0; i < length; i++) {
-            posts[i] = idToPosts[start + i];
+            posts[i] = _idToPosts[i];
         }
 
         return posts;
@@ -125,24 +112,88 @@ contract Post {
 
     // Get total number of posts by a user
     function getTotalPostsByUser(address user) external view returns (uint256) {
-        return userToPostIds[user].length;
+        return _userToPostIds[user].length;
     }
 
-    // Function to update attestation count in post
-    function updateAttestCount(uint256 postId) external onlySectorResolver {
-        require(postId <= _postIds.current(), "Post does not exist");
-        idToPosts[postId].postAttestCount++;
-        emit PostAttestCountUpdated(
-            postId,
-            idToPosts[postId].postAttestCount,
-            tx.origin
-        );
+    // Get interested freelancers address
+    function getInterestedFreelancers(
+        uint256 postId
+    ) external view returns (address[] memory) {
+        require(postId <= _postId.current(), "Post does not exist");
+        return _idToPosts[postId].interestedFreelancers;
     }
 
-    function updateInterestedFreelancers
+    function expressInterest(uint256 postId) external {
+        require(postId <= _postId.current(), "Post does not exist");
 
-    // Get the last used post ID
-    function getLastPostId() external view returns (uint256) {
-        return _postIds.current();
+        // Ensure that the freelancer has not already expressed interest
+        PostStruct storage post = _idToPosts[postId];
+        for (uint256 i = 0; i < post.interestedFreelancers.length; i++) {
+            require(
+                post.interestedFreelancers[i] != msg.sender,
+                "Already expressed interest"
+            );
+        }
+
+        // Add the freelancer's address to the interestedFreelancers array
+        post.interestedFreelancers.push(msg.sender);
+
+        // Emit an event to indicate that the freelancer has expressed interest
+        emit InterestExpressed(postId, msg.sender);
+    }
+
+    // Event to indicate interest expressed
+    event InterestExpressed(uint256 postId, address freelancer);
+
+    // Set the task winner
+    function setTaskWinner(
+        uint256 postId,
+        address winner
+    ) external onlyPostCreator {
+        require(postId <= _postId.current(), "Post does not exist");
+        require(
+            _idToPosts[postId].postStatus,
+            "Task is not open for assignments"
+        ); // Ensure that the post is open for assignments (postStatus is true)
+        require(
+            msg.sender == _idToPosts[postId].postCreator,
+            "Only the post creator can assign a winner"
+        ); // Ensure that the sender is the creator of the post
+        require(
+            _isInterestedFreelancer(postId, winner),
+            "Winner is not an interested freelancer"
+        ); // Ensure that the winner is one of the interested freelancers
+
+        // Update the task winner
+        _idToPosts[postId].taskWinner = winner;
+
+        // Close the task by setting postStatus to false
+        _idToPosts[postId].postStatus = false;
+
+        // Emit an event to indicate the winner assignment
+        emit TaskWinnerAssigned(postId, winner);
+    }
+
+    // Event to indicate the task winner assignment
+    event TaskWinnerAssigned(uint256 postId, address winner);
+
+    // Internal function to check if an address is an interested freelancer for a given post
+    function _isInterestedFreelancer(
+        uint256 postId,
+        address freelancer
+    ) internal view returns (bool) {
+        PostStruct storage post = _idToPosts[postId];
+        for (uint256 i = 0; i < post.interestedFreelancers.length; i++) {
+            if (post.interestedFreelancers[i] == freelancer) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Get the status of a post (live or closed)
+    function getPostStatus(uint256 postId) external view returns (bool) {
+        require(postId <= _postId.current(), "Post does not exist");
+        return _idToPosts[postId].postStatus;
     }
 }
