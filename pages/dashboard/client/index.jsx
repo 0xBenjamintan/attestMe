@@ -9,9 +9,9 @@ import dynamic from 'next/dynamic'
 function Home() {
   return (
     <main>
-      <div className="flex flex-col lg:flex-row mt-20">
-        <div className="relative w-[420px] lg:w-1/3">
-          <Card className="w-4/5 h-auto p-6 space-y-4">
+      <div className="relative flex flex-col items-center lg:flex-row justify-center w-full mt-20 mb-20 gap-20">
+        <div className="relative w-1/2 lg:w-1/3">
+          <Card className="w-full h-auto p-6 space-y-4">
             <CardContent>
               <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Client Profile</CardTitle>
               <div className="grid place-items-center space-y-4">
