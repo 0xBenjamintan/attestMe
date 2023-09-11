@@ -64,7 +64,7 @@ function Home() {
               <Card className="w-full h-auto p-4">
                 <CardHeader>
                   <CardTitle>Project 2</CardTitle>
-                  <div className="mt-2"> {/* Add margin-top for spacing */}
+                  <div className="mt-2">
                     <CardDescription>Project Description</CardDescription>
                     <CardDescription>Duration</CardDescription>
                     <CardDescription>Price</CardDescription>
