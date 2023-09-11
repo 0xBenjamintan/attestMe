@@ -446,8 +446,5 @@ export const contractAddresses = {
     167005: "0x3a4F982b855589C9cc9c8d31dc69cc785412f285", //taiko
     5001: "0x74F574c522C3d4061Bda6b0a45064BDc52eD02C2", //mantle
     59140: "0x50d2E3ea37C9075edE8901d1c48bf687843eab4B",//Linea
-    ""
-
-
-
+    420: "0xc5D2c1fD7Ce5D37EC6222737cfdfD79cC1987Aa9" //optimism
 }
