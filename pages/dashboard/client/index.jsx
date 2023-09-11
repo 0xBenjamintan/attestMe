@@ -31,9 +31,9 @@ function Home() {
               <p>Wallet Address: [Wallet Address]</p>
               <p>Number of Created Tasks: [Data]</p>
               <p>Number of Attestation Completions: [Data]</p>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
 
         <Card className="w-[340px] h-[400px] p-6 space-y-4">
           <CardHeader>
