@@ -28,9 +28,6 @@ function Home() {
                 <p>Number of Attested Completions: [Data]</p>
                 <p>Posted Projects: [Data]</p>
               </div>
-              <p>Wallet Address: [Wallet Address]</p>
-              <p>Number of Created Tasks: [Data]</p>
-              <p>Number of Attestation Completions: [Data]</p>
             </CardContent>
           </Card>
         </div>
