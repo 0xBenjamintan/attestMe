@@ -2,13 +2,13 @@ import '@/styles/globals.css'
 import '@rainbow-me/rainbowkit/styles.css';
 import { darkTheme, getDefaultWallets, midnightTheme, RainbowKitProvider} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, base, zora, mantleTestnet, taikoTestnetSepolia } from 'wagmi/chains';
+import { mainnet, polygon, optimism, arbitrum, base, zora, mantleTestnet, taikoTestnetSepolia, optimismGoerli } from 'wagmi/chains';
 import RootLayout from "@/components/ui/Layout"
 
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
-  [mantleTestnet],
+  [mantleTestnet, optimismGoerli],
   [publicProvider()]
 )
 
