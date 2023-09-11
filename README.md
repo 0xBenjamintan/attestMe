@@ -12,23 +12,23 @@
 
 ### 🗂️ Problem Statement
 
-💡 There’s no way for clients to identify if the freelancers are competent in completing their jobs in the space. The clients also don't know if they can trust certain clients due to unverified payments.
+- There’s no way for clients to identify if the freelancers are competent in completing their jobs in the space. The clients also don't know if they can trust certain clients due to unverified payments.
 
-💡 There’s currently not a reliable Web3 Job Marketplace available in the space. In Web3, employers who look out for freelancers to perform micro tasks / gigs, usually utilises Twitter and Discord for reachouts. These gigs typically include: Website Development, Discord Server Moderation, Smart Contract Audits and Community Management.
+- There’s currently not a reliable Web3 Job Marketplace available in the space. In Web3, employers who look out for freelancers to perform micro tasks / gigs, usually utilises Twitter and Discord for reachouts. These gigs typically include: Website Development, Discord Server Moderation, Smart Contract Audits and Community Management.
 
 
-### Get Started
+### 💻 Get Started
 url
 
 
-### Solution ⚙️
+### ⚙️ Solution 
 
-🔹 Task givers may click the **'Attest'** button associated with a post, indicating their formal endorsement of the freelancer's satisfactory completion of the task.
+- Task givers may click the **'Attest'** button associated with a post, indicating their formal endorsement of the freelancer's satisfactory completion of the task.
 
-🔹 Attesting to posts serves as a concrete affirmation by task givers that the freelancer has executed the task with excellence and met their expectations.
+- Attesting to posts serves as a concrete affirmation by task givers that the freelancer has executed the task with excellence and met their expectations.
 
 
-### 🔥 Value Proposition 🔥
+### 🔥 Value Proposition
 
 **👍🏼 Task completion attestation**
 
@@ -45,14 +45,14 @@ This feature empowers freelancers to vouch for clients upon receiving payment fo
 
 ![](public/selection.png)
 
-If you are a Client, you may:
+**If you are a Client, you may:**
 1. Create posts for job details and extend job opportunities.
 2. Attest the completed task by clicking the **"Attest"** button.
 3. Transfer funds to freelancers upon task completion.
 
 💎 For clients, the count of attestations signifies the quantity of verified payments they have issued.
 
-If you are a Freelancer, you may:
+**If you are a Freelancer, you may:**
 1. Select tasks through the dashboard with the **"Interested"** button.
 2. Select the **"Complete Task"** button upon successful task fulfillment.
 3. Confirm 'payment received' from the client by utilizing the **"Attest"** button.
@@ -76,18 +76,33 @@ If you are a Freelancer, you may:
   - Linting & Formatting: `eslint`, `prettier`
   - Design: `excalidraw`
 
-#### **Deployments ⛓️**
+## **Targeted Sponsors ⛓️**
 
-- Linea 
+#### **🦊 Metamask Track 1**
+- Deploy a Smart Contract on Linea 
 
-- Taiko 
+#### **🧩 Taiko Track 1**
+- Deploy on Taiko 
+
+#### **🧩 Taiko Track 3**
+- Ethereum Public Goods
+
+#### **🎯 NeonEVM Challenge Track**
 
 
-#### **License 📄**
+## **Quadratic Funding Track 1 🔰**
 
-This project operates under the MIT License, giving you the freedom to build upon our vision.
+**Recipient-Initiated Funding Proposals:** Our system allows project recipients to create comprehensive funding proposals. This means that those seeking support have a structured and transparent way to present their projects, objectives, and financial requirements. This feature ensures that proposals are well-defined and aligned with the challenge's goals.
 
-#### **Explore**
+**Donor Participation and Expression of Interest:** Donors are actively engaged in the process. They review funding proposals and express their interest or lack thereof in supporting specific projects. This element demonstrates that our system values donor input and choice, a key aspect of many challenges seeking innovative solutions.
+
+**Commitment to Financial Support:** When donors express interest in a project, they have the option to commit financial support by clicking the 'Fund' button. This commitment signifies that our system aligns with challenges seeking to promote real-world financial contributions and commitment to impactful initiatives.
+
+**Verification of Fund Utilization:** Our system incorporates a verification step through the 'Attest' button. Donors can verify that recipients are utilizing the funds as proposed, adding a layer of transparency and accountability that aligns with challenges focused on responsible resource allocation.
+
+**Recipient Confirmation of Funds Received:** Conversely, recipients can also use the 'Attest' button to confirm the legitimate receipt of funds from donors. This reciprocal attestation reinforces transparency and trust in the financial transaction process.
+
+## **Explore** 💭
 Embrace the reality of task marketplaces with AttestMe. Say hello to the availability of task mutualism with the ability to hire or take tasks.
 
 If you have any feedbacks, feel free to drop them on GitHub!
