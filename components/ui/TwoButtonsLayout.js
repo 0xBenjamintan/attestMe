@@ -27,7 +27,7 @@ const TwoButtonsLayout = () => {
           <CardTitle className="mt-8">Client</CardTitle>
           {/* Details */}
           <CardDescription className="mt-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Create Tasks and Hire Freelancers, Attest to their work and pay
           </CardDescription>
           {/* Button */}
           <CardFooter>
@@ -52,7 +52,7 @@ const TwoButtonsLayout = () => {
           <CardTitle className="mt-8">Freelancer</CardTitle>
           {/* Details */}
           <CardDescription className="mt-6">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Explore Tasks and Apply, Get Hired, Get Paid, and Attest Client Payout
           </CardDescription>
           {/* Button */}
           <CardFooter>
