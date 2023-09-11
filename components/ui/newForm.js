@@ -6,7 +6,7 @@ const NewForm = () => {
 
   return (
     <Card>
-        <div className=" ml spacing-2 text-center">
+        <div className=" ml spacing-2 w-auto text-center">
             <h1>Create Task</h1>
 
                 <h2>Task Name: <input className="placeholder=“Task Name"></input> 

@@ -132,14 +132,6 @@ function Home() {
 
       {/* Dialog Button */}
       <NewForm />
-
-      <Image
-        src="/dashboard2.png"
-        alt="Additional Image"
-        width={840 * 0.7}
-        height={840 * 0.7} 
-        objectFit="cover"
-      />
     </main>
   );
 }
