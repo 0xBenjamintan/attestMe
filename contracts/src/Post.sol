@@ -1,33 +1,70 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
+// Import OpenZeppelin's Counters library for safely incrementing uint256
 import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Post {
-    // post creator contract address
-    address public postCreatorAddress;
+contract Post is Ownable {
+    using Counters for Counters.Counter; // Using Counters library for Counters.Counter type
+    Counters.Counter private _postId; // Counter for generating unique post IDs
+    address private resolverAddressJobDone; // Address of the Sector Resolver contract
+    address private resolverAddressPayoutDone; // Address of the Sector Resolver contract
 
-    modifier onlyPostCreator() {
+    // Modifiers
+
+    // Ensure only the creator of a specific post can call certain functions
+    modifier onlyPostCreator(uint256 _postId) {
         require(
-            msg.sender == postCreatorAddress,
+            msg.sender == _idToPosts[_postId].postCreator,
+            "Only Post Creator can call this function"
+        );
+        _;
+    }
+
+    // Ensure only a freelancer (not the post creator) can call certain functions
+    modifier onlyFreelancer(uint256 _postId) {
+        require(
+            msg.sender != _idToPosts[_postId].postCreator,
+            "Only Freelancer can call this function"
+        );
+        _;
+    }
+
+    modifier onlyResolverAddressJobDone() {
+        require(
+            msg.sender == resolverAddressJobDone,
+            "Only Sector Resolver can call this function"
+        );
+        _;
+    }
+
+    modifier onlyResolverAddressPayoutDone() {
+        require(
+            msg.sender == resolverAddressPayoutDone,
             "Only Sector Resolver can call this function"
         );
         _;
     }
 
     // Events
+
+    // Event emitted when a new post is created
     event PostCreated(
-        uint256 postId,
-        string postTitle,
-        address postCreator,
-        string postContent,
-        uint256 postPrice,
-        uint256 postDate,
-        string postDuration,
-        bool postStatus
+        uint256 indexed postId,
+        address indexed postCreator,
+        uint256 postDate
     );
 
-    // Post structure
+    // Event emitted when a freelancer expresses interest in a post
+    event InterestExpressed(uint256 indexed postId, address indexed freelancer);
+
+    // Event emitted when a task winner is set
+    event TaskWinnerAssigned(uint256 indexed postId, address indexed winner);
+
+    // Structs
+
+    // Struct for storing post information
     struct PostStruct {
         uint256 postId;
         address postCreator;
@@ -36,148 +73,137 @@ contract Post {
         uint256 postPrice;
         uint256 postDate;
         string postDuration;
-        bool postStatus;
-        address[] interestedFreelancers;
-        address taskWinner;
+        bool postStatus; // true = live, false = closed
+        address[] interestedFreelancers; // Freelancers who are interested
+        address taskWinner; // Address of the freelancer who wins the task
+        bool jobComplete;
+        bool payoutComplete;
     }
 
-    using Counters for Counters.Counter;
-    Counters.Counter private _postId;
+    // Mappings
 
+    // Mapping from post ID to PostStruct
     mapping(uint256 => PostStruct) private _idToPosts;
+
+    // Mapping from user address to list of post IDs created by them
     mapping(address => uint256[]) private _userToPostIds;
 
-    // Create post
+    // Create a new post
     function createPost(
         string calldata _postTitle,
         string calldata _postContent,
-        uint256 _postDate,
         uint256 _postPrice,
-        string calldata _postDuration,
-        bool _postStatus
+        string calldata _postDuration
     ) external {
+        // Validation: Ensure all the required fields are filled
         require(bytes(_postTitle).length > 0, "No Post Title!");
         require(bytes(_postContent).length > 0, "No Post Content!");
         require(_postPrice > 0, "No Price!");
         require(bytes(_postDuration).length > 0, "No Duration!");
 
+        // Generate a new post ID and increment the counter
         _postId.increment();
         uint256 postId = _postId.current();
-        PostStruct storage post = _idToPosts[postId];
 
+        // Store the post information in storage
+        PostStruct storage post = _idToPosts[postId];
         post.postId = postId;
         post.postCreator = msg.sender;
         post.postTitle = _postTitle;
         post.postContent = _postContent;
         post.postPrice = _postPrice;
-        post.postDate = _postDate;
+        post.postDate = block.timestamp; // Set the post date to the current block timestamp
         post.postDuration = _postDuration;
+        post.postStatus = true; // Set the post status to live
+        post.jobComplete = false;
+        post.payoutComplete = false;
 
+        // Add the post ID to the list of posts created by the sender
         _userToPostIds[msg.sender].push(postId);
 
-        emit PostCreated(
-            postId,
-            _postTitle,
-            msg.sender,
-            _postContent,
-            _postPrice,
-            _postDate,
-            _postDuration,
-            _postStatus
-        );
+        // Emit a PostCreated event
+        emit PostCreated(postId, msg.sender, block.timestamp);
     }
 
-    // the different between the two functions below is that the first one is use for querying a single post created by a single user,
-    // while the second one is use for querying all the posts created by a single user
-    // Get single post
-    // this function is use for querying a single post in the storage
+    // Get a single post by ID
     function getPost(uint256 postId) external view returns (PostStruct memory) {
-        require(postId <= _postId.current(), "Post does not exist");
+        // Validation: Ensure the post ID is valid
+        require(
+            postId <= _postId.current() && postId > 0,
+            "Post does not exist"
+        );
         return _idToPosts[postId];
     }
 
-    // Get all posts with pagination
-    // this function is use for querying all the posts in the storage
+    // Get all posts
     function getAllPosts() external view returns (PostStruct[] memory) {
-        // calculate the length of the array, the amount of posts that will be returned
-        uint256 length = _postId.current() - 1;
-        PostStruct[] memory posts = new PostStruct[](length); // create a new array with the length of the amount of posts that will be returned
+        uint256 length = _postId.current();
+        // Create a new array to hold the posts
+        PostStruct[] memory posts = new PostStruct[](length);
 
-        for (uint256 i = 0; i < length; i++) {
-            posts[i] = _idToPosts[i];
+        // Loop through all the posts and add them to the array
+        for (uint256 i = 1; i <= length; i++) {
+            posts[i - 1] = _idToPosts[i];
         }
 
         return posts;
     }
 
-    // Get total number of posts by a user
+    // Get the total number of posts created by a specific user
     function getTotalPostsByUser(address user) external view returns (uint256) {
         return _userToPostIds[user].length;
     }
 
-    // Get interested freelancers address
+    // Get the list of freelancers interested in a specific post
     function getInterestedFreelancers(
         uint256 postId
-    ) external view returns (address[] memory) {
-        require(postId <= _postId.current(), "Post does not exist");
+    ) external view onlyPostCreator(postId) returns (address[] memory) {
         return _idToPosts[postId].interestedFreelancers;
     }
 
-    function expressInterest(uint256 postId) external {
-        require(postId <= _postId.current(), "Post does not exist");
-
-        // Ensure that the freelancer has not already expressed interest
+    // Express interest in a post as a freelancer
+    function expressInterest(uint256 postId) external onlyFreelancer(postId) {
         PostStruct storage post = _idToPosts[postId];
+        // Validation: Ensure the freelancer hasn't already expressed interest
         for (uint256 i = 0; i < post.interestedFreelancers.length; i++) {
             require(
                 post.interestedFreelancers[i] != msg.sender,
                 "Already expressed interest"
             );
         }
-
-        // Add the freelancer's address to the interestedFreelancers array
+        // Add the freelancer to the list of interested freelancers
         post.interestedFreelancers.push(msg.sender);
 
-        // Emit an event to indicate that the freelancer has expressed interest
+        // Emit an InterestExpressed event
         emit InterestExpressed(postId, msg.sender);
     }
 
-    // Event to indicate interest expressed
-    event InterestExpressed(uint256 postId, address freelancer);
-
-    // Set the task winner
+    // Set the task winner for a post
     function setTaskWinner(
         uint256 postId,
         address winner
-    ) external onlyPostCreator {
-        require(postId <= _postId.current(), "Post does not exist");
+    ) external onlyPostCreator(postId) {
+        // Validation: Ensure the post is still open for assignments
         require(
             _idToPosts[postId].postStatus,
             "Task is not open for assignments"
-        ); // Ensure that the post is open for assignments (postStatus is true)
-        require(
-            msg.sender == _idToPosts[postId].postCreator,
-            "Only the post creator can assign a winner"
-        ); // Ensure that the sender is the creator of the post
+        );
+
+        // Validation: Ensure the winner is an interested freelancer
         require(
             _isInterestedFreelancer(postId, winner),
             "Winner is not an interested freelancer"
-        ); // Ensure that the winner is one of the interested freelancers
+        );
 
-        // Update the task winner
+        // Set the task winner and close the task
         _idToPosts[postId].taskWinner = winner;
-
-        // Close the task by setting postStatus to false
         _idToPosts[postId].postStatus = false;
 
-        // Emit an event to indicate the winner assignment
+        // Emit a TaskWinnerAssigned event
         emit TaskWinnerAssigned(postId, winner);
     }
 
-    // Event to indicate the task winner assignment
-    event TaskWinnerAssigned(uint256 postId, address winner);
-
-    // Internal function to check if an address is an interested freelancer for a given post
+    // Internal function to check if an address is an interested freelancer for a post
     function _isInterestedFreelancer(
         uint256 postId,
         address freelancer
@@ -191,9 +217,37 @@ contract Post {
         return false;
     }
 
-    // Get the status of a post (live or closed)
+    // Get the status of a post (true = live, false = closed)
     function getPostStatus(uint256 postId) external view returns (bool) {
-        require(postId <= _postId.current(), "Post does not exist");
+        // Validation: Ensure the post ID is valid
+        require(
+            postId <= _postId.current() && postId > 0,
+            "Post does not exist"
+        );
         return _idToPosts[postId].postStatus;
+    }
+
+    function updateJobComplete(
+        uint256 postId
+    ) external onlyResolverAddressJobDone {
+        _idToPosts[postId].jobComplete = true;
+    }
+
+    function updatePayoutComplete(
+        uint256 postId
+    ) external onlyResolverAddressPayoutDone {
+        _idToPosts[postId].payoutComplete = true;
+    }
+
+    function setResolverAddressJobDone(
+        address _resolverAddressJobDone
+    ) external onlyOwner {
+        resolverAddressJobDone = _resolverAddressJobDone;
+    }
+
+    function setResolverAddressPayoutDone(
+        address _resolverAddressPayoutDone
+    ) external onlyOwner {
+        resolverAddressPayoutDone = _resolverAddressPayoutDone;
     }
 }

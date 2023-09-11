@@ -7,10 +7,7 @@ import {Post} from "../src/Post.sol";
 contract Deploy is Script {
     function run() external {
         // set up deployer
-        // uint256 privKey = vm.envUint("PRIVATE_KEY");
-        uint256 privKey = vm.envUint(
-            "e9cd33b499740d6f2b0d6241a26cad47e69d70e53a9ad4adb37fc418d120b3c6"
-        );
+        uint256 privKey = vm.envUint("PRIVATE_KEY");
 
         address deployer = vm.rememberKey(privKey);
         // log deployer data
