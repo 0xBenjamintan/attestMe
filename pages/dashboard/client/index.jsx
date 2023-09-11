@@ -9,9 +9,9 @@ import dynamic from 'next/dynamic'
 function Home() {
   return (
     <main>
-      <div className="flex flex-col lg:flex-row mt-20">
-        <div className="relative w-[420px] lg:w-1/3">
-          <Card className="w-4/5 h-auto p-6 space-y-4">
+      <div className="relative flex flex-col items-center lg:flex-row justify-center w-full mt-20 mb-20 gap-20">
+        <div className="relative w-1/2 lg:w-1/3">
+          <Card className="w-full h-auto p-6 space-y-4">
             <CardContent>
               <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Client Profile</CardTitle>
               <div className="grid place-items-center space-y-4">
@@ -34,7 +34,21 @@ function Home() {
           </Card>
         </div>
 
-        <Card className="w-[340px] h-[400px] p-6 space-y-4">
+        <div className="w-1/2 lg:w-1/3">
+          <div className="w-full h-auto">
+            <Image
+              src="/dashboard2.png" // Replace with the path to your image
+              alt="Additional Image"
+              width={840 * 1.0}
+              height={840 * 1.0}
+              objectFit="cover"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex justify-center items-center">
+        <Card className="w-[450px] h-auto p-6 space-y-4 m-10">
           <CardHeader>
             <CardTitle className="text-4xl font-semibold text-gray-800 mb-3">
               Your Created Tasks
@@ -70,67 +84,55 @@ function Home() {
             </div>
           </CardContent>
         </Card>
+        {/* Dialog Button */}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline">Create Post</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Create Post</DialogTitle>
+              <DialogDescription>
+                Edit your task post here. Tap on Save when ready.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="name" className="text-right">
+                  Project Name
+                </Label>
+                <Input id="name" value="Pedro Duarte" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="username" className="text-right">
+                  Project Description
+                </Label>
+                <Input id="username" value="@peduarte" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="username" className="text-right">
+                  Duration
+                </Label>
+                <Input id="username" value="@peduarte" className="col-span-3" />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="username" className="text-right">
+                  Price
+                </Label>
+                <Input id="username" value="@peduarte" className="col-span-3" />
+              </div>
+            </div>
+            <DialogFooter>
+              <button className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">Save changes</button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
-
-      {/* Dialog Button */}
-      <DialogDemo />
-
-      <Image
-        src="/dashboard2.png"
-        alt="Additional Image"
-        width={840 * 0.7}
-        height={840 * 0.7} 
-        objectFit="cover"
-      />
     </main>
   );
 }
 
-export function DialogDemo() {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Create Post</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Create Post</DialogTitle>
-          <DialogDescription>
-            Edit your task post here. Tap on Save when ready.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Project Name
-            </Label>
-            <Input id="name" value="Pedro Duarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Project Description
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Duration
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="username" className="text-right">
-              Price
-            </Label>
-            <Input id="username" value="@peduarte" className="col-span-3" />
-          </div>
-        </div>
-        <DialogFooter>
-          <button className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600">Save changes</button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
+
+
 
 export default dynamic (() => Promise.resolve(Home), {ssr: false} )
