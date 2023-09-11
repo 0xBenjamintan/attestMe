@@ -13,7 +13,7 @@ function Home() {
         <div className="relative w-[420px] lg:w-1/3">
           <Card className="w-4/5 h-auto p-6 space-y-4">
             <CardContent>
-              <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Freelancer Profile</CardTitle>
+              <CardTitle className="text-4l grid place-items-center font-semibold text-gray-800 mb-3">Client Profile</CardTitle>
               <div className="grid place-items-center space-y-4">
                 <div className="relative rounded-full overflow-hidden w-36 h-36">
                   <Image
@@ -24,9 +24,11 @@ function Home() {
                     objectFit="cover"
                   />
                 </div>
-                <p>Wallet Address: [WalletAddress]</p>
-                <p>Number of Attested Completions: [Data]</p>
-                <p>Posted Projects: [Data]</p>
+                <div>
+                  <p className='mb-2'>Wallet Address: [WalletAddress]</p>
+                  <p className='mb-2'>Number of Attested Payouts: [Data]</p>
+                  <p className='mb-2'>Posted Projects: [Data]</p>
+                </div>
               </div>
             </CardContent>
           </Card>
