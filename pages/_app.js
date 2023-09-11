@@ -8,7 +8,7 @@ import RootLayout from "@/components/ui/Layout"
 import { publicProvider } from 'wagmi/providers/public';
 
 const { chains, publicClient } = configureChains(
-  [optimismGoerli],
+  [mantleTestnet, optimismGoerli],
   [publicProvider()]
 )
 
