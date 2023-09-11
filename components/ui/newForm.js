@@ -107,9 +107,9 @@ const NewForm = () => {
           <div className="popup">
             <div className="popup-content">
               <h2>Task Created</h2>
-              <button className="btn btn-secondary" onClick={handleClosePopup}>
+              <Button className="btn btn-secondary" onClick={handleClosePopup}>
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         )}
