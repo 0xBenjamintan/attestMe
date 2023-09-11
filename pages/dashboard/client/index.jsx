@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import dynamic from 'next/dynamic'
+import NewForm from '@/components/ui/newForm';
 
 function Home() {
   return (
@@ -128,6 +129,17 @@ function Home() {
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* Dialog Button */}
+      <NewForm />
+
+      <Image
+        src="/dashboard2.png"
+        alt="Additional Image"
+        width={840 * 0.7}
+        height={840 * 0.7} 
+        objectFit="cover"
+      />
     </main>
   );
 }
