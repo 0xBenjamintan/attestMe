@@ -77,7 +77,7 @@ function Home() {
       <DialogDemo />
 
       <Image
-        src="/dashboard1.jpg"
+        src="/dashboard2.png"
         alt="Additional Image"
         width={840 * 0.7}
         height={840 * 0.7} 
