@@ -81,18 +81,18 @@ This feature empowers freelancers to vouch for clients upon receiving payment fo
 #### **🦊 Metamask Track 1**
 - Deploy a Smart Contract on Linea 
 
-#### **🧩 Taiko Track 1**
+#### **👷 Taiko Track 1**
 - Deploy on Taiko 
 
-#### **🧩 Taiko Track 3**
+#### **🌏 Taiko Track 3**
 - Ethereum Public Goods
 
-#### **🎯 NeonEVM Challenge Track**
+#### **🧩 NeonEVM Challenge Track**
 
 
 ## **Quadratic Funding Track 1 🔰**
 
-**Recipient-Initiated Funding Proposals:** Our system allows project recipients to create comprehensive funding proposals. This means that those seeking support have a structured and transparent way to present their projects, objectives, and financial requirements. This feature ensures that proposals are well-defined and aligned with the challenge's goals.
+**Recipient-Initiated Funding Proposals:** Our system allows project recipients to create comprehensive funding proposals. This means those seeking support have a structured and transparent way to present their projects, objectives, and financial requirements. This feature ensures proposals are well-defined and aligned with the challenge's goals.
 
 **Donor Participation and Expression of Interest:** Donors are actively engaged in the process. They review funding proposals and express their interest or lack thereof in supporting specific projects. This element demonstrates that our system values donor input and choice, a key aspect of many challenges seeking innovative solutions.
 
@@ -105,4 +105,4 @@ This feature empowers freelancers to vouch for clients upon receiving payment fo
 ## **Explore** 💭
 Embrace the reality of task marketplaces with AttestMe. Say hello to the availability of task mutualism with the ability to hire or take tasks.
 
-If you have any feedbacks, feel free to drop them on GitHub!
+If you have any feedback, feel free to drop them on GitHub!
