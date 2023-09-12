@@ -82,7 +82,8 @@ This feature empowers freelancers to vouch for clients upon receiving payment fo
 ## **Targeted Sponsors ⛓️**
 
 #### **🦊 Metamask Track 1**
-- Deploy a Smart Contract on Linea 
+- Deploy a Smart Contract on Linea
+  Pitchdeck: https://youtu.be/YqSj3Mpuapw
 
 #### **👷 Taiko Track 1**
 - Deploy on Taiko 
