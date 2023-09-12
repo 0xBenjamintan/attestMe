@@ -2,15 +2,60 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"
 import dynamic from 'next/dynamic'
+import { useAccount, usePrepareContractWrite, useContractWrite, useContractRead } from 'wagmi';
+import { postABI, contractAddresses } from '@/contracts/constants';
 
 const NewForm = () => {
     const [formData, setFormData] = useState({
-      taskName: '',
-      details: '',
-      price: '',
-      duration: '',
+      taskName: 'Test',
+      details: 'Test',
+      price: 3,
+      duration: 'Test',
     });
-  
+
+    const [content, setContent] = useState([]);
+   
+    const {
+      write: createPost,
+    } = useContractWrite({
+      address: contractAddresses[420],
+      abi: postABI.abi,
+      functionName: "createPost",
+      args: [formData.taskName, formData.details, formData.price, formData.duration],
+      onSuccess: () => {
+        alert("Task Created");
+      },
+    });
+
+    const { read: getAllPosts, } = useContractRead({
+      address: contractAddresses[420],
+      abi: postABI.abi,
+      functionName: "getAllPosts",
+      onSuccess: (data) => {
+        setContent(data)
+      }
+    });
+
+    console.log(content)
+
+    //create card for each post
+    const createCard = (post) => {
+      return (
+        <Card className="w-[500px]">
+          <CardHeader>
+            <CardTitle>{post.taskName}</CardTitle>
+            <CardDescription>{post.details}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p>Price: {post.price}</p>
+            <p>Duration: {post.duration}</p>
+          </CardContent>
+        </Card>
+      )
+    }
+
+    
+    
     const [showPopup, setShowPopup] = useState(false); // State for popup visibility
   
     const handleInputChange = (e) => {
@@ -25,7 +70,7 @@ const NewForm = () => {
       e.preventDefault();
       const jsonData = JSON.stringify(formData, null, 2);
       console.log(jsonData);
-  
+      createPost();
       // Show the popup when the form is submitted
       setShowPopup(true);
     };
@@ -37,6 +82,8 @@ const NewForm = () => {
     };
   
     return (
+      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <createCard post={content} />
       <Card className="w-[500px]">
         <form onSubmit={handleSubmit}>
           <div className="ml spacing-2 w-full">
@@ -114,6 +161,7 @@ const NewForm = () => {
           </div>
         )}
       </Card>
+      </div>
     );
   };
 
