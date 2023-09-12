@@ -1,8 +1,37 @@
+import { useState } from 'react';
 import Image from 'next/image'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import dynamic from 'next/dynamic'
+import {FreelancerJob} from '@/components/freelancerJob';
 
 function Home() {
+  const [jobs, setJobs] = useState([
+    {
+      title: "Task 1", 
+      description: "Project Description", 
+      duration: "1 Hour", 
+      price: "50 USD"
+    },
+    {
+      title: "Task 2", 
+      description: "Project Description", 
+      duration: "3 Hours", 
+      price: "75 USD"
+    },
+    {
+      title: "Task 3", 
+      description: "Project Description", 
+      duration: "5 Days", 
+      price: "200 USD"
+    },
+    {
+      title: "Task 4", 
+      description: "Project Description", 
+      duration: "2 Hours", 
+      price: "30 USD"
+    },
+  ]); 
+
   return (
     <main>
       <div className="relative flex flex-col items-center lg:flex-row justify-center w-full mt-20 mb-20 gap-20">
@@ -45,35 +74,11 @@ function Home() {
           <Card className="w-full h-auto p-4 space-y-4">
             <h2 className="text-xl font-semibold text-gray-800">Projects:</h2>
             <div className="space-y-4">
-              {/* Project 1 */}
-              <Card className="w-full h-auto p-4">
-                <CardHeader>
-                  <CardTitle>Project 1</CardTitle>
-                  <div className="mt-2"> {/* Add margin-top for spacing */}
-                    <CardDescription>Project Description</CardDescription>
-                    <CardDescription>Duration</CardDescription>
-                    <CardDescription>Price</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {/* Project 1's Details*/}
-                </CardContent>
-              </Card>
-
-              {/* Project 2 */}
-              <Card className="w-full h-auto p-4">
-                <CardHeader>
-                  <CardTitle>Project 2</CardTitle>
-                  <div className="mt-2">
-                    <CardDescription>Project Description</CardDescription>
-                    <CardDescription>Duration</CardDescription>
-                    <CardDescription>Price</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  {/* Project 2's Details*/}
-                </CardContent>
-              </Card>
+              {jobs.map((job, index) => {
+                return (
+                  <FreelancerJob title={job.title} description={job.description} duration={job.duration} price={job.price} key={index}/>
+                )
+              })}
             </div>
           </Card>
         </div>
