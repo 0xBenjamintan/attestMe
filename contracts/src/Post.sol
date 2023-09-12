@@ -163,16 +163,19 @@ contract Post is Ownable {
 
     // Express interest in a post as a freelancer
     function expressInterest(uint256 postId) external onlyFreelancer(postId) {
-        PostStruct storage post = _idToPosts[postId];
         // Validation: Ensure the freelancer hasn't already expressed interest
-        for (uint256 i = 0; i < post.interestedFreelancers.length; i++) {
+        for (
+            uint256 i = 0;
+            i < _idToPosts[postId].interestedFreelancers.length;
+            i++
+        ) {
             require(
-                post.interestedFreelancers[i] != msg.sender,
+                _idToPosts[postId].interestedFreelancers[i] != msg.sender,
                 "Already expressed interest"
             );
         }
         // Add the freelancer to the list of interested freelancers
-        post.interestedFreelancers.push(msg.sender);
+        _idToPosts[postId].interestedFreelancers.push(msg.sender);
 
         // Emit an InterestExpressed event
         emit InterestExpressed(postId, msg.sender);

@@ -15,4 +15,3 @@ enabled = true
 [etherscan]
 optimism-goerli = { key = "${OPTIMISM_GOERLI_ETHERSCAN_API_KEY}", url = "https://api-goerli-optimistic.etherscan.io/api" }
 linea-goerli = {key = "${LINEA_GOERLI_LINEASCAN_API_KEY}", url = "https://api.lineascan.build/api"}
-linea-goerli = {key = "${LINEA_GOERLI_LINEASCAN_API_KEY}", url = "https://api.lineascan.build/api"}
